@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Gateway to Radar</title>
+
+<link href="./scripts/jQuery/redmond/jquery-ui-1.10.3.custom.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="./scripts/jQuery/jquery-2.0.3.js"></script>
+<script type="text/javascript"
+	src="./scripts/jQuery/redmond/jquery-ui-1.10.3.custom.js"></script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+	// Login Dialog
+	var loginDialog = $("#divLoginForm");
+
+	// UserId field on login dialog
+	var uid = $("#uid");
+
+	// password field on login dialog
+	var pwd = $("#pwd");
+
+	// Main Accordion control
+	var mainContent = $("#divMainContent");
+
+	var sprintSettingsHosts = $("#sprintSettingsHosts");
+
+	var sprintAccordionSettings = $("#sprintAccordionSettings");
+
+	var metroAccordionSettings = $("#metroAccordionSettings");
+
+	sprintSettingsHosts.tabs({
+			height: "auto",
+			auto: true
+		});
+	
+	sprintAccordionSettings.accordion({
+		collapsible: true
+		});
+
+	metroAccordionSettings.accordion();
+	
+	mainContent.tabs({
+					disabled: [ 1 ],
+					//collapsible: true, // Collapse All the Tabs on Main Content
+					auto: false,
+					height: "auto",
+					active: 'none'
+					});
+
+	loginDialog.dialog({
+		autoOpen : false,
+		height : "auto",
+		width : "auto",
+		modal : true,
+		draggable: false,
+		resizable: false,
+		closeOnEscape: false,
+		/*show: {
+			effect: "slide",
+			duration: 100
+		},*/
+		buttons : {
+			"Login" : function() {
+				if(("" != uid.val() && "" != pwd.val()) && (uid.val() == pwd.val())) {
+					loginDialog.dialog("close");
+				}
+			}
+		}
+	});
+	
+	$("button.ui-dialog-titlebar-close").hide();
+	
+	$(window).resize(function() {
+		loginDialog.dialog('option', 'position', 'center');
+	});
+
+	$("#add-host").button().click(function() {
+
+		});
+});
+
+	/*$(document).ready(function() {
+		//alert("Ready");
+		$("#frmGateway").submit(function(event) {
+			
+			var u = $("#userId").val();
+			var p = $("#passwd").val();
+			var bool = true;
+
+			if(u.trim() == '') {
+				$("#userId").addClass("errorField");
+				bool = false;
+			}
+			if(p.trim() == '') {
+				$("#passwd").addClass("errorField");
+				bool = false;
+			}
+
+			if(bool == false) {
+				event.preventDefault();
+			}
+		});
+
+		$("#userId").keypress(function() {
+										$("#userId").removeClass("errorField");
+									}
+		);
+
+		$("#passwd").keypress(function() {
+										$("#passwd").removeClass("errorField");
+									}
+		);
+	}); */
+</script>
+<style type="text/css">
+	body {
+		font-size: 62.5%;
+	}
+	
+	label,input {
+		display: block;
+	}
+	
+	input.text {
+		margin-bottom: 12px;
+		width: 95%;
+		padding: .4em;
+	}
+	
+	fieldset {
+		padding: 0;
+		border: 0;
+		margin-top: 25px;
+	}
+	
+	h1 {
+		font-size: 1.2em;
+		margin: .6em 0;
+	}
+	
+	div#users-contain {
+		width: 350px;
+		margin: 20px 0;
+	}
+	
+	div#users-contain table {
+		margin: 1em 0;
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	div#users-contain table td,div#users-contain table th {
+		border: 1px solid #eee;
+		padding: .6em 10px;
+		text-align: left;
+	}
+	
+	.ui-dialog .ui-state-error {
+		padding: .3em;
+	}
+	
+	.validateTips {
+		border: 1px solid transparent;
+		padding: 0.3em;
+	}
+</style>
+</head>
+<body>
+	<div id="divLoginForm" title="Gateway!">
+		<form id="loginForm">
+			<table>
+				<p>Identify yourself</p>
+				<tr>
+					<td><label for="uid">User Name: </label></td>
+					<td><input type="text" id="uid"
+						placeholder="Enter your user name"
+						class="text ui-widget-content ui-corner-all" /></td>
+				</tr>
+				<tr>
+					<td><label for="pwd">Password: </label></td>
+					<td><input type="password" id="pwd"
+						placeholder="Enter your password"
+						class="text ui-widget-content ui-corner-all" /></td>
+				</tr>
+			</table>
+			<!-- <fieldset>
+					<p>Identify yourself</p>
+					<label for="uid">User Name: </label>
+					<input type="text" id="uid" placeholder="Enter your user name" class="text ui-widget-content ui-corner-all"/>
+
+					<label for="pwd">Password: </label>
+					<input type="password" id="pwd" placeholder="Enter your password" class="text ui-widget-content ui-corner-all"/>
+				</fieldset> -->
+		</form>
+	</div>
+
+	<div id="divMainContent">
+		<ul>
+			<li><a href="#tab1">Sprint</a></li>
+			<li><a href="#tab2">Metro</a></li>
+		</ul>
+		<div id="tab1">
+<!-- 			<h2>Sprint Header</h2> -->
+			<div id="sprintAccordionSettings">
+				<h3>Sprint Settings</h3>
+				<div>
+					<div id=sprintSettingsHosts>
+						<ul>
+							<li><a href="#sprintSettingsHostsTab">Hosts</a></li>
+							<li><a href="#sprintSettingsHFFilesTab">Files for Hotfix Verification</a></li>
+						</ul>
+						<div id="sprintSettingsHostsTab">
+							<div id="hosts-contain" class="ui-widget">
+								<h1>Hosts</h1>
+								<table id="hosts" class="ui-widget ui-widget-content">
+									<thead>
+										<tr class="ui-widget-header">
+											<td>Host Name</td>
+											<td>User</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>cmil402</td>
+											<td>crmread</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<button id="add-host">Add Host</button>
+						</div>
+						<div id="sprintSettingsHFFilesTab">
+							HF Verification Files List
+						</div>
+					</div>
+				</div>
+				<h3>HF Verification</h3>
+				<div>
+					Sprint HF Verification Page!
+				</div>
+				
+				<h3>XML Validation</h3>
+				<div>
+					XML Validation
+				</div>
+				
+				<h3>Properties File Validation</h3>
+				<div>
+					Properties File Validation
+				</div>
+				
+				<h3>Accord 5</h3>
+				<div>
+					Accord 5
+				</div>
+				
+				<h3>Accord 6</h3>
+				<div>
+					Accord 6
+				</div>
+			</div>
+		</div>
+		<div id="tab2">
+<!-- 			<h2>Metro Header</h2> -->
+			<div id="metroAccordionSettings">
+				<h3>Metro Settings</h3>
+				<div>
+					Metro Settings . . .
+				</div>
+				<h3>Metro HF Verification</h3>
+				<div>
+					Metro HF Verification!
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
